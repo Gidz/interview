@@ -75,9 +75,38 @@ class Helper:
         for service in services_list:
             #Use the helper functions to append to user routes
             user_routes.extend(self.services.get_user_service(user_id, service))
+
         return user_routes
 
 
+    def get_all_user_routes(self, user_id):
+        '''
+        Takes in an user id in string format and returns all the routes possible.
+        Since this function is just a varient of get_user_routes_by_service, we can use than method internally.
+        '''
+        user_routes = []
+        #Make a call to get_user_routes_by_service method and pass in a list of all service names
+        user_routes = self.get_user_routes_by_service(user_id, self.service_names)
+
+        return user_routes
+
+    def get_unique_routes(self):
+        '''
+        Returns all the unique routes possible.
+        I might be wrong, but without much data or sample inputs or outputs, and without overthinking, this is
+        what I thought would fit in. Otherwise, these sort of problems should be done using Graphs for efficiency.
+
+        Basically all the checkpoints from services without duplicates.
+
+        This can be achieved by putting all the checkpoints and a hashmap and retrieving all the keys.
+        It is simple and effective since insertion into hashmap will remove duplicates.
+        '''
+        #Get all the routes
+        all_routes = self.get_all_routes()
+        #Put them in a hashmap and make a list of all the keys of hashmap to return
+        all_routes = list(dict.fromkeys(all_routes))
+  
+        return all_routes
 
 def main():
     #Create an object of helper class. We use this object to print the required output.
@@ -85,8 +114,8 @@ def main():
 
     #Output
     print("All routes:", helper.get_all_routes())
-    print("Unique routes:")
-    print("For user 42:")
+    print("Unique routes:", helper.get_unique_routes())
+    print("For user 42:", helper.get_all_user_routes("42"))
     print("For user 42 services [\"komoot\",\"rwgps\"]:", helper.get_user_routes_by_service("42", ["komoot","rwgps"]))
     
 
