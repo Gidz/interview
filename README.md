@@ -52,5 +52,7 @@ return the user's routes for only the services listed.
 
 
 ## Building/Running
+This is a simple python script.
+This script is coded in python3, so you can run it as
 
-TODO: please provide instructions to build and run your program(s) along with any require tools an dependencies.
+$ python3 solution.py
