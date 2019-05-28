@@ -66,6 +66,18 @@ class Helper:
 
         return all_routes
 
+    def get_user_routes_by_service(self, user_id, services_list):
+        '''
+        Return all the user routes by service
+        '''
+        user_routes = []
+        #Iterate over the services list which is provided as input
+        for service in services_list:
+            #Use the helper functions to append to user routes
+            user_routes.extend(self.services.get_user_service(user_id, service))
+        return user_routes
+
+
 
 def main():
     #Create an object of helper class. We use this object to print the required output.
@@ -75,7 +87,7 @@ def main():
     print("All routes:", helper.get_all_routes())
     print("Unique routes:")
     print("For user 42:")
-    print("For user 42 services [\"komoot\",\"rwgps\"]:")
+    print("For user 42 services [\"komoot\",\"rwgps\"]:", helper.get_user_routes_by_service("42", ["komoot","rwgps"]))
     
 
 #If this program is being run from command line directly, execute the main method.
