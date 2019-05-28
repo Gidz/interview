@@ -14,6 +14,37 @@ class Services:
         '''
         return self.available_services.keys()
 
+
+    def get_user_service(self, user_id, service):
+        '''
+        Takes in user id and service name as strings and returns the routes appropriately.
+        Even though it wasn't mentioned in the problem description, I've noticed that in the output pattern
+        for user services follows this:
+        
+        > Append user_id before the stop name for strava
+        > Append user_id after the stop name for rwgps
+        > Append user_id before and after the stop name for komoot
+        
+        '''
+        if service =="strava":
+            output = []
+            #Iterate over the checkpoints in the service and append the user id before the checkpoint
+            for checkpoint in self.available_services[service]:
+                output.append(user_id + checkpoint)
+            return output
+        elif service == "rwgps":
+            output = []
+            #Iterate over the checkpoints in the service and append the user id after the checkpoint
+            for checkpoint in self.available_services[service]:
+                output.append(checkpoint + user_id)
+            return output
+        elif service == "komoot":
+            output = []
+            #Iterate over the checkpoints in the service and append the user id before and after the checkpoint
+            for checkpoint in self.available_services[service]:
+                output.append(user_id+checkpoint + user_id)
+            return output
+
 class Helper:
     '''
     A helper class which can host all the business logic a.k.a required methods to get the output.
